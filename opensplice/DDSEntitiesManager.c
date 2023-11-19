@@ -82,12 +82,12 @@ DDS_Topic createTopic(DDS_DomainParticipant domainParticipant, const char *topic
    checkHandle(topicQos, "DDS_TopicQos__alloc");
    g_status = DDS_DomainParticipant_get_default_topic_qos(domainParticipant, topicQos);
    checkStatus(g_status, "DDS_DomainParticipant_get_default_topic_qos");
-   topicQos->reliability.kind = DDS_RELIABLE_RELIABILITY_QOS;
-   topicQos->durability.kind = DDS_TRANSIENT_DURABILITY_QOS;
+   //topicQos->reliability.kind = DDS_RELIABLE_RELIABILITY_QOS;
+   //topicQos->durability.kind = DDS_TRANSIENT_DURABILITY_QOS;
 
    // Set the history Policy
-   // topicQos.history.kind = KEEP_LAST_HISTORY_QOS;
-   // topicQos.history.depth = 2;
+   //topicQos->history.kind = DDS_KEEP_LAST_HISTORY_QOS;
+   //topicQos->history.depth = 2;
 
    // Use the changed policy when defining the Ownership topic
    topic = DDS_DomainParticipant_create_topic(domainParticipant, topicName, typeName, topicQos, NULL, DDS_STATUS_MASK_NONE);
