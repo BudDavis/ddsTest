@@ -55,7 +55,7 @@ int HelloWorldDataSubscriber(int argc, const char *argv[])
    os_time os_delay200 = { 0, 200000000 };
 
    // Create DDS DomainParticipant
-   domainParticipant = createParticipant("*");
+   domainParticipant = createParticipant("HelloWorld example");
 
    // Register the Topic's type in the DDS Domain.
    messageTypeSupport = HelloWorldData_MsgTypeSupport__alloc();

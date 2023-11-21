@@ -27,6 +27,7 @@
  ***********************************************************************/
 #ifndef __CHECKSTATUS_H__
 #define __CHECKSTATUS_H__
+
 #include "dds_dcps.h"
 #include <stdio.h>
 #include <stdlib.h>

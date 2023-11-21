@@ -78,10 +78,7 @@ int HelloWorldDataPublisher(int argc, const char *argv[])
 
    message_Sample = HelloWorldData_Msg__alloc();
 
-   message_Sample->userID = 0;
-   while(1)
-   {
-   message_Sample->userID++;
+   message_Sample->userID = 1;
    message_Sample->message = DDS_string_alloc(HelloWorldLength);
    strncpy(message_Sample->message, HelloWorld, HelloWorldLength);
 
@@ -93,7 +90,6 @@ int HelloWorldDataPublisher(int argc, const char *argv[])
    g_status = HelloWorldData_MsgDataWriter_write(message_DataWriter, message_Sample, DDS_HANDLE_NIL);
    checkStatus(g_status, "HelloWorldData_MsgDataWriter_write");
    os_nanoSleep(delay_1s);
-   }
    // Removed to comply with expected results
    //printf("\n=== [HelloWorldDataPublisher] Exiting.\n\n");
 

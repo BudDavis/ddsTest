@@ -82,12 +82,12 @@ DDS_Topic createTopic(DDS_DomainParticipant domainParticipant, const char *topic
    checkHandle(topicQos, "DDS_TopicQos__alloc");
    g_status = DDS_DomainParticipant_get_default_topic_qos(domainParticipant, topicQos);
    checkStatus(g_status, "DDS_DomainParticipant_get_default_topic_qos");
-   //topicQos->reliability.kind = DDS_RELIABLE_RELIABILITY_QOS;
-   //topicQos->durability.kind = DDS_TRANSIENT_DURABILITY_QOS;
+   topicQos->reliability.kind = DDS_RELIABLE_RELIABILITY_QOS;
+   topicQos->durability.kind = DDS_TRANSIENT_DURABILITY_QOS;
 
    // Set the history Policy
-   //topicQos->history.kind = DDS_KEEP_LAST_HISTORY_QOS;
-   //topicQos->history.depth = 2;
+   // topicQos.history.kind = KEEP_LAST_HISTORY_QOS;
+   // topicQos.history.depth = 2;
 
    // Use the changed policy when defining the Ownership topic
    topic = DDS_DomainParticipant_create_topic(domainParticipant, topicName, typeName, topicQos, NULL, DDS_STATUS_MASK_NONE);
@@ -128,7 +128,7 @@ DDS_Publisher createPublisher(DDS_DomainParticipant domainParticipant)
    checkHandle(publisherQos->partition.name._buffer, "DDS_StringSeq_allocbuf");
    publisherQos->partition.name._buffer[0] = DDS_string_dup(g_partitionName);
    checkHandle(publisherQos->partition.name._buffer[0], "DDS_string_dup");
-   printf("\npublisher partition name is [%s]\n",g_partitionName);
+
    /* Create a Publisher for the application. */
    publisher = DDS_DomainParticipant_create_publisher(domainParticipant, publisherQos, NULL, DDS_STATUS_MASK_NONE);
    checkHandle(publisher, "DDS_DomainParticipant_create_publisher");
@@ -187,7 +187,6 @@ DDS_Subscriber createSubscriber(DDS_DomainParticipant domainParticipant)
    subscriberQos->partition.name._buffer[0] = DDS_string_dup(g_partitionName);
    checkHandle(subscriberQos->partition.name._buffer[0], "DDS_string_dup");
 
-   printf("\nsubscriber partition name is [%s]\n",g_partitionName);
    // Create a Subscriber for the MessageBoard application.
    subscriber = DDS_DomainParticipant_create_subscriber(domainParticipant, subscriberQos, NULL, DDS_STATUS_MASK_NONE);
    checkHandle(subscriber, "DDS_DomainParticipant_create_subscriber");

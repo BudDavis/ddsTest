@@ -8,7 +8,7 @@ GENERATED_FILES= HelloWorldDataDcps.h  HelloWorldDataSacDcps.h  HelloWorldDataSp
 default:HelloWorldDataPublisher HelloWorldDataSubscriber
 
 ${GENERATED_FILES}: HelloWorldData.idl
-	${OSPL_HOME}/bin/idlpp -l c HelloWorldData.idl
+	${OSPL_HOME}/bin/idlpp -l c $^
 
 COMMON_FILES= DDSEntitiesManager.c CheckStatus.c
 
@@ -24,5 +24,5 @@ HelloWorldDataSubscriber: ${GENERATED_FILES} ${COMMON_FILES}
 		-L${OSPL_HOME}/lib \
 		-ldcpssac -lddskernel
 clean:
-	-rm -f ${GENERATED_FILES} HelloWorldDataPublisher HelloWorldDataSubscriber
+	-rm -f ${GENERATED_FILES} HelloWorldDataPublisher HelloWorldDataSubscriber ospl-info.log
 
