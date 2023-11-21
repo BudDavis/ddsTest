@@ -26,19 +26,14 @@ int main (int argc, char ** argv)
     DDS_FATAL("dds_create_participant: %s\n", dds_strretcode(-participant));
 
   /* Create a Topic. */
-
-  qos = dds_create_qos ();
-  dds_qset_reliability (qos, DDS_RELIABILITY_RELIABLE, DDS_SECS (10));
   topic = dds_create_topic (
-    participant, &HelloWorldData_Msg_desc, "HelloWorldData_Msg", qos, NULL);
+    participant, &HelloWorldData_Msg_desc, "HelloWorldData_Msg", NULL, NULL);
   if (topic < 0)
     DDS_FATAL("dds_create_topic: %s\n", dds_strretcode(-topic));
 
-   dds_delete_qos(qos);
   /* Create a reliable Reader. */
   qos = dds_create_qos ();
-  dds_qset_reliability (qos, DDS_RELIABILITY_BEST_EFFORT, DDS_SECS (10));
-  //dds_qset_reliability (qos, DDS_RELIABILITY_RELIABLE, DDS_SECS (10));
+  dds_qset_reliability (qos, DDS_RELIABILITY_RELIABLE, DDS_SECS (10));
   reader = dds_create_reader (participant, topic, qos, NULL);
   if (reader < 0)
     DDS_FATAL("dds_create_reader: %s\n", dds_strretcode(-reader));
@@ -53,11 +48,10 @@ int main (int argc, char ** argv)
 
   /* Poll until data has been read. */
   while (true)
-  while (true)
   {
     /* Do the actual read.
      * The return value contains the number of read samples. */
-    rc = dds_take (reader, samples, infos, MAX_SAMPLES, MAX_SAMPLES);
+    rc = dds_read (reader, samples, infos, MAX_SAMPLES, MAX_SAMPLES);
     if (rc < 0)
       DDS_FATAL("dds_read: %s\n", dds_strretcode(-rc));
 
