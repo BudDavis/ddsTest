@@ -128,7 +128,7 @@ DDS_Publisher createPublisher(DDS_DomainParticipant domainParticipant)
    checkHandle(publisherQos->partition.name._buffer, "DDS_StringSeq_allocbuf");
    publisherQos->partition.name._buffer[0] = DDS_string_dup(g_partitionName);
    checkHandle(publisherQos->partition.name._buffer[0], "DDS_string_dup");
-
+   printf("\npublisher partition name is [%s]\n",g_partitionName);
    /* Create a Publisher for the application. */
    publisher = DDS_DomainParticipant_create_publisher(domainParticipant, publisherQos, NULL, DDS_STATUS_MASK_NONE);
    checkHandle(publisher, "DDS_DomainParticipant_create_publisher");
@@ -187,6 +187,7 @@ DDS_Subscriber createSubscriber(DDS_DomainParticipant domainParticipant)
    subscriberQos->partition.name._buffer[0] = DDS_string_dup(g_partitionName);
    checkHandle(subscriberQos->partition.name._buffer[0], "DDS_string_dup");
 
+   printf("\nsubscriber partition name is [%s]\n",g_partitionName);
    // Create a Subscriber for the MessageBoard application.
    subscriber = DDS_DomainParticipant_create_subscriber(domainParticipant, subscriberQos, NULL, DDS_STATUS_MASK_NONE);
    checkHandle(subscriber, "DDS_DomainParticipant_create_subscriber");

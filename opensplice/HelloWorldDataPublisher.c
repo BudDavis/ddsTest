@@ -58,7 +58,7 @@ int HelloWorldDataPublisher(int argc, const char *argv[])
    // Create DDS DomainParticipant
    // Removed to comply with expected results
    //printf("\n create Participant...");
-   domainParticipant = createParticipant("HelloWorld example");
+   domainParticipant = createParticipant("");
 
    // Register the Topic's type in the DDS Domain.
    messageTypeSupport = HelloWorldData_MsgTypeSupport__alloc();

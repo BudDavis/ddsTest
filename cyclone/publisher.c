@@ -3,6 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static void data_available_cb(dds_entity_t reader, void* arg)
+{
+  (void)reader;
+  (void)arg;
+}
+
 int main (int argc, char ** argv)
 {
   dds_entity_t participant;
@@ -33,18 +39,21 @@ int main (int argc, char ** argv)
   printf("=== [Publisher]  Waiting for a reader to be discovered ...\n");
   fflush (stdout);
 
-  rc = dds_set_status_mask(writer, DDS_PUBLICATION_MATCHED_STATUS);
+  rc = dds_set_status_mask(writer, DDS_PUBLICATION_MATCHED_STATUS |  DDS_OFFERED_INCOMPATIBLE_QOS_STATUS);
   if (rc != DDS_RETCODE_OK)
     DDS_FATAL("dds_set_status_mask: %s\n", dds_strretcode(-rc));
 
   while(!(status & DDS_PUBLICATION_MATCHED_STATUS))
   {
     rc = dds_get_status_changes (writer, &status);
+    if (status & DDS_OFFERED_INCOMPATIBLE_QOS_STATUS)
+	    printf("offered incompatible QOS\n");
     if (rc != DDS_RETCODE_OK)
       DDS_FATAL("dds_get_status_changes: %s\n", dds_strretcode(-rc));
-
+printf("The status is %x  PUB MATCHED %x INCOMP_QOS %x\n",status,DDS_PUBLICATION_MATCHED_STATUS,DDS_OFFERED_INCOMPATIBLE_QOS_STATUS);
     /* Polling sleep. */
-    dds_sleepfor (DDS_MSECS (20));
+    //dds_sleepfor (DDS_MSECS (20));
+    sleep(5);
   }
 
   msg.userID = 0;
